@@ -1,0 +1,35 @@
+{% include "header.html" %}
+
+<h1>My Account</h1>
+<p></p>
+<p><a href="/change_pw">Change Password</a></p>
+<p></p>
+<h4>My Past Orders</h4>
+
+{% if noorder is sameas true %}
+
+  <p>Seems like you haven't ordered before. Try and taste our coffee <a href='/products'>here</a>.</p>
+
+{% else %}
+  {% for order in order_list %}
+    <table>
+
+    {% set orderdetails = order["details"] %}
+
+    <tr><td><b>Date:</b></td><td colspan="2">{{order["orderdate"]}}</td></tr>
+    <tr><td><b>Item</b></td><td><b>Quantity</b></td><td><b>Subtotal</b></td></tr>
+
+    {% for orderdet in orderdetails %}
+      <tr><td>{{orderdet["name"]}}</td><td>{{orderdet["qty"]}}</td><td>{{orderdet["subtotal"]}}</td></tr>
+
+    {% endfor %}
+
+    <p></p>
+
+    </table>
+
+  {% endfor %}
+
+{% endif %}
+
+{% include "footer.html" %}
